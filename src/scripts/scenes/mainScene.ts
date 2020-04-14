@@ -19,6 +19,8 @@ export default class MainScene extends Phaser.Scene {
     this.sheep1 = this.add.sprite(0, 0, "sheep");
     this.sheep1.setInteractive();
     this.input.setDraggable(this.sheep1);
+    //TODO: make sheep objects match with sprites
+    //TODO: make list of all selected sheep
     //this.sheep1.input.draggable;
     this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
