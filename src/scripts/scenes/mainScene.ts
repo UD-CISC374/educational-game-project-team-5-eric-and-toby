@@ -16,8 +16,7 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.sheep = new Sheep(this, 0, 0);
     this.selectedSheep = this.add.group();
-    //TODO: remove the adding in here
-    this.selectedSheep.add(this.sheep);
+    this.input.mouse.disableContextMenu();
     if(this.selectedSheep.children.contains(this.sheep)) {
       console.log("Sheep in group");
     }
@@ -37,15 +36,9 @@ export default class MainScene extends Phaser.Scene {
 
 
   });
-    //set sheep to be added to a group when left clicked
-    /*this.input.on('gameobjectdown', function (pointer, gameObject) {
-      console.log("Sheep clicked");
-      
-      //TODO: fix scoping issue with calling "this"
-      //this.onObjectClicked(pointer, gameObject);
-    });*/
+    // the last this here passes in the correct scope
     this.input.on('gameobjectdown',this.onObjectClicked, this);
-    //this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
+    this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
     
   }
 
@@ -53,18 +46,23 @@ export default class MainScene extends Phaser.Scene {
   }
 
   onObjectClicked(pointer, gameObject : Sheep) {
-    //TODO: the scoping error is down here now, gotta figure out how to get it to recognize "this" as the scene
-    if(this.selectedSheep.children.contains(gameObject)) {
-      // sheep is already in the group
-      this.selectedSheep.remove(gameObject);
-      gameObject.isSelected = false;
-      console.log("Removed to selected group");
-   }
-   else{
-     //add sheep to group
-    console.log("Added to selected group");
-    this.selectedSheep.add(gameObject);
-    gameObject.isSelected = true;
-   }
+    if (pointer.rightButtonDown()) {
+      this.selectedSheep.clear(true);
+    }
+    else {
+      if(this.selectedSheep.children.contains(gameObject)) {
+        // sheep is already in the group
+        this.selectedSheep.remove(gameObject);
+        gameObject.isSelected = false;
+        console.log("Removed to selected group");
+     }
+     else{
+       //add sheep to group
+        console.log("Added to selected group");
+        this.selectedSheep.add(gameObject);
+        gameObject.isSelected = true;
+     }
+    }
+   console.log(this.selectedSheep.getChildren());
   }
 }
