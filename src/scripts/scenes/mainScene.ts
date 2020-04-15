@@ -3,25 +3,41 @@ import Sheep from '../objects/sheep';
 
 export default class MainScene extends Phaser.Scene {
   private exampleObject: ExampleObject;
-  private sheep: Sheep;
-  sheep1: Phaser.GameObjects.Sprite;
   test: Phaser.GameObjects.Image;
   scoretext: Phaser.GameObjects.Text;
   selectedSheep: Phaser.GameObjects.Group;
+  totalSheep: Phaser.GameObjects.Group;
+  sheep: Sheep;
 
   constructor() {
     super({ key: 'MainScene' });
   }
 
   create() {
-    this.sheep = new Sheep(this, 0, 0);
-    this.sheep1 = new Sheep(this, 1, 1);
-    this.selectedSheep = this.add.group();
-    this.input.mouse.disableContextMenu();
-    if(this.selectedSheep.children.contains(this.sheep)) {
-      console.log("Sheep in group");
+    enum sheepColors {
+      Blue = 1,
+      Red,
+      Brown
     }
-
+    this.selectedSheep = this.add.group();
+    this.totalSheep = this.add.group();
+    for (let i = 0;  i < 10; i++ ) {
+      let x = Phaser.Math.Between(0,300);
+      let y = Phaser.Math.Between(0,300);
+      let color = sheepColors[Phaser.Math.Between(1,3)];
+      let sheep = new Sheep(this, x, y, color)
+      this.totalSheep.add(sheep);
+    }
+    this.input.mouse.disableContextMenu();
+    Phaser.Actions.GridAlign(this.totalSheep.getChildren(), {
+        width: 4,
+        height: 3,
+        cellWidth: 100,
+        cellHeight: 100,
+        x: 100,
+        y: 100
+    });
+    
     //this.test = this.add.image(10,10,"brown");
     //this.sheep1 = this.add.sprite(0, 0, "sheep");
     //this.sheep1.setInteractive();
