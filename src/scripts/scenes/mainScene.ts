@@ -15,8 +15,8 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    this.sheep = new Sheep(this, 0, 0);
-    this.sheep1 = new Sheep(this, 1, 1);
+    this.sheep = new Sheep(this, 0, 0, "white");
+    this.sheep1 = new Sheep(this, 1, 1, "brown");
     this.selectedSheep = this.add.group();
     this.input.mouse.disableContextMenu();
     if(this.selectedSheep.children.contains(this.sheep)) {
@@ -89,10 +89,13 @@ export default class MainScene extends Phaser.Scene {
     repeat: -1
   });
 
-  this.sheep.play("white-select");
+  //this.sheep.play("white-unselect");
   }
 
   update() {
+
+
+
     //TODO: swap sheep
     /*if (this.checkOverlap(this.sheep, this.sheep1))
     {
@@ -142,6 +145,23 @@ export default class MainScene extends Phaser.Scene {
     
    
  }
+
+ sheepChooseSprite(gameObject : Sheep){
+   let color : string = gameObject.currentColor;
+   if(color==="brown"&&gameObject.isSelected){
+    gameObject.play("brown-select");
+   }
+   else if(color==="brown"&&!gameObject.isSelected){
+    gameObject.play("brown-unselect");
+   }
+   else if(color==="white"&&gameObject.isSelected){
+    gameObject.play("white-select");
+  }
+  else if(color==="white"&&!gameObject.isSelected){
+    gameObject.play("white-unselect");
+  }
+ }
+
   onObjectClicked(pointer, gameObject : Sheep) {
     if (pointer.rightButtonDown()) {
       this.selectedSheep.clear(true);
@@ -151,6 +171,7 @@ export default class MainScene extends Phaser.Scene {
         // sheep is already in the group
         this.selectedSheep.remove(gameObject);
         gameObject.isSelected = false;
+        this.sheepChooseSprite(gameObject);
         console.log("Removed to selected group");
      }
      else{
@@ -158,6 +179,7 @@ export default class MainScene extends Phaser.Scene {
         console.log("Added to selected group");
         this.selectedSheep.add(gameObject);
         gameObject.isSelected = true;
+        this.sheepChooseSprite(gameObject);
      }
     }
    console.log(this.selectedSheep.getChildren());
