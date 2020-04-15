@@ -41,10 +41,16 @@ export default class MainScene extends Phaser.Scene {
     // the last this here passes in the correct scope
     this.input.on('gameobjectdown',this.onObjectClicked, this);
     this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
-    this.timedEvent = this.time.addEvent({ delay: 2000, callback: ()=>{
+    this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
+      // reset sheep
+      this.checkOverlap(this.sheep1, this.sheep);
+  }, callbackScope: this, loop: true });
+    this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
       // reset sheep
       this.resetToGrid(this.sheep1);
+      this.resetToGrid(this.sheep);
   }, callbackScope: this, loop: true });
+ 
     
   this.anims.create({
     key: "brown-unselect",
@@ -87,10 +93,18 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
-    //TODO: update all sheep positions
-    
+    //TODO: swap sheep
+    /*if (this.checkOverlap(this.sheep, this.sheep1))
+    {
+        this.scoretext.text = 'Drag the sprites. Overlapping: true';
+       
+    }
+    else
+    {
+        this.scoretext.text = 'Drag the sprites. Overlapping: false';
+    }*/
     //this.resetToGrid(this.sheep1);
-    this.scoretext.setText('Event.progress: ' + this.timedEvent.getProgress().toString().substr(0, 4) + '\nEvent.repeatCount: ' + this.timedEvent.repeatCount);
+    //this.scoretext.setText('Event.progress: ' + this.timedEvent.getProgress().toString().substr(0, 4) + '\nEvent.repeatCount: ' + this.timedEvent.repeatCount);
   }
   /*
   onObjectClicked:upon left clicking a sheep, add it 
@@ -102,6 +116,24 @@ export default class MainScene extends Phaser.Scene {
   gameObject : Sheep (the game object selected, has to be a sheep)
   
   */
+ checkOverlap(spriteA : Sheep, spriteB : Sheep) {
+
+  let boundsA = spriteA.getBounds();
+  let boundsB = spriteB.getBounds();
+  if(Phaser.Geom.Rectangle.Overlaps(boundsA, boundsB)){
+    let tempx = this.sheep.gridX;
+    let tempy = this.sheep.gridY;
+    let temx = this.sheep1.gridX;
+    let temy = this.sheep1.gridY;
+    this.sheep.gridX = temx;
+    this.sheep.gridY = temy;
+    this.sheep1.gridX = tempx;
+    this.sheep1.gridY = tempy;
+  }
+
+  return Phaser.Geom.Rectangle.Overlaps(boundsA, boundsB);
+
+}
  resetToGrid(gameObject : Sheep){
   
     console.log("Sheep reset");
