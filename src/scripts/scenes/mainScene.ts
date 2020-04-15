@@ -16,6 +16,7 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.sheep = new Sheep(this, 0, 0);
     this.selectedSheep = this.add.group();
+    //TODO: remove the adding in here
     this.selectedSheep.add(this.sheep);
     if(this.selectedSheep.children.contains(this.sheep)) {
       console.log("Sheep in group");
