@@ -15,6 +15,7 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.sheep = new Sheep(this, 0, 0);
+    this.sheep1 = new Sheep(this, 1, 1);
     this.selectedSheep = this.add.group();
     this.input.mouse.disableContextMenu();
     if(this.selectedSheep.children.contains(this.sheep)) {
@@ -44,7 +45,16 @@ export default class MainScene extends Phaser.Scene {
 
   update() {
   }
-
+  /*
+  onObjectClicked:upon left clicking a sheep, add it 
+  to the group of selected sheep
+  upon right click, check and see if the fraction is
+  met, and remove the sheep
+  Params: 
+  pointer (the mouse pointer)
+  gameObject : Sheep (the game object selected, has to be a sheep)
+  
+  */
   onObjectClicked(pointer, gameObject : Sheep) {
     if (pointer.rightButtonDown()) {
       this.selectedSheep.clear(true);
