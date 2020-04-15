@@ -16,6 +16,11 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.sheep = new Sheep(this, 0, 0);
     this.selectedSheep = this.add.group();
+    this.selectedSheep.add(this.sheep);
+    if(this.selectedSheep.children.contains(this.sheep)) {
+      console.log("Sheep in group");
+    }
+
     //this.test = this.add.image(10,10,"brown");
     //this.sheep1 = this.add.sprite(0, 0, "sheep");
     //this.sheep1.setInteractive();
@@ -32,17 +37,31 @@ export default class MainScene extends Phaser.Scene {
 
   });
     //set sheep to be added to a group when left clicked
-    this.input.on('gameobjectdown', function (pointer, gameoObject) {
+    /*this.input.on('gameobjectdown', function (pointer, gameObject) {
+      console.log("Sheep clicked");
       
-    });
-    this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
+      //TODO: fix scoping issue with calling "this"
+      //this.onObjectClicked(pointer, gameObject);
+    });*/
+    this.input.on('gameobjectdown',this.onObjectClicked);
+    //this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
+    
   }
 
   update() {
   }
 
   onObjectClicked(pointer, gameObject) {
+    //TODO: the scoping error is down here now, gotta figure out how to get it to recognize "this" as the scene
+    if(this.selectedSheep.children.contains(gameObject)) {
+      // sheep is already in the group
+      this.selectedSheep.remove(gameObject);
+      console.log("Removed to selected group");
+   }
+   else{
+     //add sheep to group
     console.log("Added to selected group");
     this.selectedSheep.add(gameObject);
+   }
   }
 }
