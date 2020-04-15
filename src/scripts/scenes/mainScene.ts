@@ -4,10 +4,11 @@ import Sheep from '../objects/sheep';
 export default class MainScene extends Phaser.Scene {
   private exampleObject: ExampleObject;
   private sheep: Sheep;
-  sheep1: Phaser.GameObjects.Sprite;
+  sheep1: Sheep;
   test: Phaser.GameObjects.Image;
   scoretext: Phaser.GameObjects.Text;
   selectedSheep: Phaser.GameObjects.Group;
+  timedEvent: Phaser.Time.TimerEvent;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -40,10 +41,18 @@ export default class MainScene extends Phaser.Scene {
     // the last this here passes in the correct scope
     this.input.on('gameobjectdown',this.onObjectClicked, this);
     this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
+    this.timedEvent = this.time.addEvent({ delay: 2000, callback: ()=>{
+      // reset sheep
+      this.resetToGrid(this.sheep1);
+  }, callbackScope: this, loop: true });
     
   }
 
   update() {
+    //TODO: update all sheep positions
+    
+    //this.resetToGrid(this.sheep1);
+    this.scoretext.setText('Event.progress: ' + this.timedEvent.getProgress().toString().substr(0, 4) + '\nEvent.repeatCount: ' + this.timedEvent.repeatCount);
   }
   /*
   onObjectClicked:upon left clicking a sheep, add it 
@@ -55,6 +64,14 @@ export default class MainScene extends Phaser.Scene {
   gameObject : Sheep (the game object selected, has to be a sheep)
   
   */
+ resetToGrid(gameObject : Sheep){
+  
+    console.log("Sheep reset");
+   gameObject.x = gameObject.gridX*105;
+   gameObject.y = gameObject.gridY*105;
+    
+   
+ }
   onObjectClicked(pointer, gameObject : Sheep) {
     if (pointer.rightButtonDown()) {
       this.selectedSheep.clear(true);
