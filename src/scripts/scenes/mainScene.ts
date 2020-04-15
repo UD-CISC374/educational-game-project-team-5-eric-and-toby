@@ -13,12 +13,12 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    this.sheep = new Sheep(this, 0, 0);
+    this.sheep = new Sheep(this, 20, 20);
     
-    this.test = this.add.image(10,10,"brown");
-    this.sheep1 = this.add.sprite(0, 0, "sheep");
-    this.sheep1.setInteractive();
-    this.input.setDraggable(this.sheep1);
+    //this.test = this.add.image(10,10,"brown");
+    //this.sheep1 = this.add.sprite(0, 0, "sheep");
+    //this.sheep1.setInteractive();
+    //this.input.setDraggable(this.sheep);
     //TODO: make sheep objects match with sprites
     //TODO: make list of all selected sheep
     //this.sheep1.input.draggable;
