@@ -44,7 +44,7 @@ export default class MainScene extends Phaser.Scene {
       //TODO: fix scoping issue with calling "this"
       //this.onObjectClicked(pointer, gameObject);
     });*/
-    this.input.on('gameobjectdown',this.onObjectClicked);
+    this.input.on('gameobjectdown',this.onObjectClicked, this);
     //this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
     
   }
