@@ -52,17 +52,19 @@ export default class MainScene extends Phaser.Scene {
   update() {
   }
 
-  onObjectClicked(pointer, gameObject) {
+  onObjectClicked(pointer, gameObject : Sheep) {
     //TODO: the scoping error is down here now, gotta figure out how to get it to recognize "this" as the scene
     if(this.selectedSheep.children.contains(gameObject)) {
       // sheep is already in the group
       this.selectedSheep.remove(gameObject);
+      gameObject.isSelected = false;
       console.log("Removed to selected group");
    }
    else{
      //add sheep to group
     console.log("Added to selected group");
     this.selectedSheep.add(gameObject);
+    gameObject.isSelected = true;
    }
   }
 }
