@@ -46,6 +46,44 @@ export default class MainScene extends Phaser.Scene {
       this.resetToGrid(this.sheep1);
   }, callbackScope: this, loop: true });
     
+  this.anims.create({
+    key: "brown-unselect",
+    frames: this.anims.generateFrameNumbers("sheep", {
+      start: 0,
+      end: 0
+    }),
+    frameRate: 20,
+    repeat: -1
+  });
+  this.anims.create({
+    key: "white-unselect",
+    frames: this.anims.generateFrameNumbers("sheep", {
+      start: 2,
+      end: 2
+    }),
+    frameRate: 20,
+    repeat: -1
+  });
+  this.anims.create({
+    key: "brown-select",
+    frames: this.anims.generateFrameNumbers("sheep", {
+      start: 1,
+      end: 1
+    }),
+    frameRate: 20,
+    repeat: -1
+  });
+  this.anims.create({
+    key: "white-select",
+    frames: this.anims.generateFrameNumbers("sheep", {
+      start: 3,
+      end: 3
+    }),
+    frameRate: 20,
+    repeat: -1
+  });
+
+  this.sheep.play("white-select");
   }
 
   update() {
