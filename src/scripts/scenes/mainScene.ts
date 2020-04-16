@@ -9,14 +9,26 @@ export default class MainScene extends Phaser.Scene {
   scoretext: Phaser.GameObjects.Text;
   selectedSheep: Phaser.GameObjects.Group;
   timedEvent: Phaser.Time.TimerEvent;
+  allSheep: Array<Sheep>;
 
   constructor() {
     super({ key: 'MainScene' });
   }
 
   create() {
-    this.sheep = new Sheep(this, 0, 0, "white");
-    this.sheep1 = new Sheep(this, 1, 1, "brown");
+    //this.allSheep = this.add.group();
+    //this.allSheep.type = "Sheep";
+    this.allSheep = [];
+    
+    for(let i = 0; i<5;i++){
+      for(let j = 0; j<7;j++){
+        //TODO: randomize color
+        let sheepy = new Sheep(this, i, j, "white");
+        this.allSheep.push(sheepy);
+      }
+    }
+    //this.sheep = new Sheep(this, 0, 0, "white");
+    //this.sheep1 = new Sheep(this, 1, 1, "brown");
     this.selectedSheep = this.add.group();
     this.input.mouse.disableContextMenu();
     if(this.selectedSheep.children.contains(this.sheep)) {
@@ -43,12 +55,24 @@ export default class MainScene extends Phaser.Scene {
     this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
     this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
       // reset sheep
-      this.checkOverlap(this.sheep1, this.sheep);
+      //TODO: check overlap
+      //this.checkOverlap(this.sheep1, this.sheep);
   }, callbackScope: this, loop: true });
     this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
+      console.log("Reset function called");
+      //this.allSheep.reset
+      for(let i = 0; i<this.allSheep.length; i++){
+        this.allSheep[i].resetToGrid();
+      }
       // reset sheep
-      this.resetToGrid(this.sheep1);
-      this.resetToGrid(this.sheep);
+      //this.allSheep.children.each(this.resetToGrid(sheep), this);
+      /*Phaser.Actions.Call(this.allSheep.getChildren(), function(sheep){
+        sheep.resetToGrid();
+        
+      }, this);*/
+      //this.physics.collide
+      //this.resetToGrid(this.sheep1);
+      //this.resetToGrid(this.sheep);
   }, callbackScope: this, loop: true });
  
     

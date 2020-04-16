@@ -18,4 +18,12 @@ export default class Sheep extends Phaser.GameObjects.Sprite {
         //TODO: give sheep a color
         //TODO: give sheep an "isSelected" boolean variable
     }
+    resetToGrid(){
+  
+        console.log("Sheep reset");
+       this.x = 20+this.gridX*30;
+       this.y = 20+this.gridY*30;
+        
+       
+     }
 }
