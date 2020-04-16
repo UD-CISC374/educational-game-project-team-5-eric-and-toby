@@ -16,6 +16,10 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    enum sheepColors {
+      white = 1,
+      brown
+    }
     //this.allSheep = this.add.group();
     //this.allSheep.type = "Sheep";
     this.allSheep = new Array<Sheep>();
@@ -23,7 +27,9 @@ export default class MainScene extends Phaser.Scene {
     for(let i = 0; i<5;i++){
       for(let j = 0; j<7;j++){
         //TODO: randomize color
-        let sheepy = new Sheep(this, i, j, "white");
+        let color = sheepColors[Phaser.Math.Between(1,2)];
+        let sheepy = new Sheep(this, i, j, color);
+        this.sheepChooseSprite(sheepy);
         //sheepy.type = "Sheep";
         console.log("Sheepy is "+sheepy.type);
         console.log("Sheepy has "+sheepy.gridX);
@@ -100,6 +106,7 @@ export default class MainScene extends Phaser.Scene {
       //this.allSheep.reset
       for(let i = 0; i<this.allSheep.length; i++){
         this.allSheep[i].resetToGrid();
+        this.sheepChooseSprite(this.allSheep[i]);
       }
       // reset sheep
       //this.allSheep.children.each(this.resetToGrid(sheep), this);
