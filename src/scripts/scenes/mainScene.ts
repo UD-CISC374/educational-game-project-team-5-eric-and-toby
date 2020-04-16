@@ -18,15 +18,22 @@ export default class MainScene extends Phaser.Scene {
   create() {
     //this.allSheep = this.add.group();
     //this.allSheep.type = "Sheep";
-    this.allSheep = [];
+    this.allSheep = new Array<Sheep>();
     
     for(let i = 0; i<5;i++){
       for(let j = 0; j<7;j++){
         //TODO: randomize color
         let sheepy = new Sheep(this, i, j, "white");
+        //sheepy.type = "Sheep";
+        console.log("Sheepy is "+sheepy.type);
+        console.log("Sheepy has "+sheepy.gridX);
         this.allSheep.push(sheepy);
+        
       }
     }
+    console.log("Sheep total is "+ this.allSheep.length);
+    console.log("First sheep is "+this.allSheep[0].gridX);
+    
     //this.sheep = new Sheep(this, 0, 0, "white");
     //this.sheep1 = new Sheep(this, 1, 1, "brown");
     this.selectedSheep = this.add.group();
@@ -56,9 +63,39 @@ export default class MainScene extends Phaser.Scene {
     this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
       // reset sheep
       //TODO: check overlap
+      for(let i = 0; i<this.allSheep.length; i++){
+        //console.log("Sheep check section");
+        //console.log(this.allSheep[i].getgridX());
+        //console.log(this.allSheep[i].getgridY());
+        for(let j = 0; j<this.allSheep.length; j++){
+          //console.log(i+ "     "+ j);
+          //console.log(this.allSheep[i].getgridX() +" "+ this.allSheep[i].getgridY()+"|"+ this.allSheep[j].getgridX())
+          //console.log(j);
+          console.log("Overlap called");
+          let swap = this.allSheep[j].checkSwap(this.allSheep[i].x, this.allSheep[i].y, this.allSheep[i].getgridX(), this.allSheep[i].getgridY());
+          //let swap = false;
+          if(swap){
+            let thisx = this.allSheep[j].getgridX();
+            let thisy = this.allSheep[j].getgridY();
+            let temx = this.allSheep[i].getgridX();
+            let temy = this.allSheep[i].getgridY();
+            console.log("From "+thisx+", "+thisy +"->" + temx + ", "+temy);
+            this.allSheep[i].setgridX(thisx);
+            this.allSheep[i].setgridY(thisy);
+            this.allSheep[j].setgridX(temx);
+            this.allSheep[j].setgridY(temy);
+            console.log("Swapped");
+          }
+          //this.checkOverlap(this.allSheep[i], this.allSheep[j]);
+        }
+        
+        /*for(let j = 0; j<this.allSheep.length-1; j++){
+          this.checkOverlap(this.allSheep[i], this.allSheep[j]);
+        }*/
+      }
       //this.checkOverlap(this.sheep1, this.sheep);
   }, callbackScope: this, loop: true });
-    this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
+    this.timedEvent = this.time.addEvent({ delay: 2000, callback: ()=>{
       console.log("Reset function called");
       //this.allSheep.reset
       for(let i = 0; i<this.allSheep.length; i++){
@@ -117,7 +154,36 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
-
+    // for(let i = 0; i<this.allSheep.length; i++){
+    //   //console.log("Sheep check section");
+    //   //console.log(this.allSheep[i].getgridX());
+    //   //console.log(this.allSheep[i].getgridY());
+    //   for(let j = 0; j<this.allSheep.length; j++){
+    //     //console.log(i+ "     "+ j);
+    //     //console.log(this.allSheep[i].getgridX() +" "+ this.allSheep[i].getgridY()+"|"+ this.allSheep[j].getgridX())
+    //     //console.log(j);
+    //     console.log("Overlap called");
+    //     let swap = this.allSheep[j].checkSwap(this.allSheep[i].x, this.allSheep[i].y, this.allSheep[i].getgridX(), this.allSheep[i].getgridY());
+    //     if(swap){
+    //       let thisx = this.allSheep[j].getgridX();
+          
+    //       let thisy = this.allSheep[j].getgridY();
+    //       let temx = this.allSheep[i].getgridX();
+    //       let temy = this.allSheep[i].getgridY();
+    //       console.log("From "+thisx+", "+thisy +"->" + temx + ", "+temy);
+    //       this.allSheep[j].setgridX(temx);
+    //       this.allSheep[j].setgridY(temy);
+    //       this.allSheep[i].setgridX(thisx);
+    //       this.allSheep[i].setgridY(thisy);
+    //       console.log("Swapped");
+    //     }
+    //     //this.checkOverlap(this.allSheep[i], this.allSheep[j]);
+    //   }
+      
+    //   /*for(let j = 0; j<this.allSheep.length-1; j++){
+    //     this.checkOverlap(this.allSheep[i], this.allSheep[j]);
+    //   }*/
+    // }
 
 
     //TODO: swap sheep
@@ -148,14 +214,15 @@ export default class MainScene extends Phaser.Scene {
   let boundsA = spriteA.getBounds();
   let boundsB = spriteB.getBounds();
   if(Phaser.Geom.Rectangle.Overlaps(boundsA, boundsB)){
-    let tempx = this.sheep.gridX;
-    let tempy = this.sheep.gridY;
-    let temx = this.sheep1.gridX;
-    let temy = this.sheep1.gridY;
-    this.sheep.gridX = temx;
-    this.sheep.gridY = temy;
-    this.sheep1.gridX = tempx;
-    this.sheep1.gridY = tempy;
+    let tempx = this.sheep.getgridX();
+    let tempy = this.sheep.getgridY();
+    let temx = this.sheep1.getgridX();
+    let temy = this.sheep1.getgridY();
+    this.sheep.setgridX(temx);
+    this.sheep.setgridY(temy);
+    this.sheep1.setgridX(tempx);
+    this.sheep1.setgridX(tempy);
+    console.log("Checked "+tempx+ ", "+tempy+ " against " + temx+", "+temy);
   }
 
   return Phaser.Geom.Rectangle.Overlaps(boundsA, boundsB);

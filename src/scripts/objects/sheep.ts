@@ -26,4 +26,30 @@ export default class Sheep extends Phaser.GameObjects.Sprite {
         
        
      }
+     checkSwap(otherx:integer, othery:integer, othergridx: integer, othergridy:integer){
+
+        if(this.x<25+otherx&& this.x>otherx-10&&this.y>othery-10&&this.y<othery+25){
+            if(othergridx!=this.gridX||othergridy!= this.gridY){
+                console.log("Overlap!")
+                return true;
+            }
+            
+            return false;
+            
+        }
+        return false;
+     }
+     getgridX(){
+        //console.log(this.x);
+         return this.gridX;
+     }
+     getgridY(){
+        return this.gridY;
+    }
+    setgridX(newx : integer){
+        this.gridX = newx;
+    }
+    setgridY(newy : integer){
+        this.gridY = newy;
+    }
 }
