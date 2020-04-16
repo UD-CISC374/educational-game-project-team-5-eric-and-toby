@@ -140,8 +140,8 @@ export default class MainScene extends Phaser.Scene {
  resetToGrid(gameObject : Sheep){
   
     console.log("Sheep reset");
-   gameObject.x = gameObject.gridX*105;
-   gameObject.y = gameObject.gridY*105;
+   gameObject.x = 20+gameObject.gridX*30;
+   gameObject.y = 20+gameObject.gridY*30;
     
    
  }

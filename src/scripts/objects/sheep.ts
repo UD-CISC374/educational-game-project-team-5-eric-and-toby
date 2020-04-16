@@ -5,7 +5,7 @@ export default class Sheep extends Phaser.GameObjects.Sprite {
     currentColor : string;
 
     constructor(scene: Phaser.Scene, x: number, y: number, color : string) {
-        super(scene, 105*x, 105*y, 'sheep');
+        super(scene, 30*x+20, 30*y+20, 'sheep');
         scene.add.existing(this);
         this.setInteractive();
         scene.input.setDraggable(this);
