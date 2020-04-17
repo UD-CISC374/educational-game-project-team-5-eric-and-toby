@@ -6,10 +6,16 @@ export default class MainScene extends Phaser.Scene {
   private sheep: Sheep;
   sheep1: Sheep;
   test: Phaser.GameObjects.Image;
-  scoretext: Phaser.GameObjects.Text;
+  fractionText: Phaser.GameObjects.Text;
+  numeratorText: Phaser.GameObjects.Text;
+  denominatorText: Phaser.GameObjects.Text;
   selectedSheep: Phaser.GameObjects.Group;
   timedEvent: Phaser.Time.TimerEvent;
   allSheep: Array<Sheep>;
+  numerator: Number;
+  denominator: Number;
+  lineText: Phaser.GameObjects.Text;
+
 
   constructor() {
     super({ key: 'MainScene' });
@@ -57,15 +63,16 @@ export default class MainScene extends Phaser.Scene {
     //TODO: make list of all selected sheep
     //this.sheep1.input.draggable;
     this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-
       gameObject.x = dragX;
       gameObject.y = dragY;
-
-
   });
     // the last this here passes in the correct scope
     this.input.on('gameobjectdown',this.onObjectClicked, this);
-    this.scoretext = this.add.text(20,20, "Crickets: ", {fill:"black"});
+    this.fractionText = this.add.text(200,20, "Fraction:", {fill:"black"});
+    this.numeratorText = this.add.text(200,35, "1", {fill:"white"});
+    this.lineText = this.add.text(200,45, "--", {fill:"black"});
+    this.denominatorText = this.add.text(200,55, "1", {fill:"black"});
+    this.generateFraction(sheepColors[Phaser.Math.Between(1, 2)]);
     this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
       // reset sheep
       //TODO: check overlap
@@ -159,6 +166,7 @@ export default class MainScene extends Phaser.Scene {
 
   //this.sheep.play("white-unselect");
   }
+  
 
   update() {
     // for(let i = 0; i<this.allSheep.length; i++){
@@ -216,7 +224,7 @@ export default class MainScene extends Phaser.Scene {
   gameObject : Sheep (the game object selected, has to be a sheep)
   
   */
- checkOverlap(spriteA : Sheep, spriteB : Sheep) {
+ checkOverlap(this: MainScene, spriteA : Sheep, spriteB : Sheep) {
 
   let boundsA = spriteA.getBounds();
   let boundsB = spriteB.getBounds();
@@ -261,8 +269,13 @@ export default class MainScene extends Phaser.Scene {
  }
 
   onObjectClicked(pointer, gameObject : Sheep) {
+    enum sheepColors {
+      white = 1,
+      brown
+    }
     if (pointer.rightButtonDown()) {
       this.selectedSheep.clear(true);
+      this.generateFraction(sheepColors[Phaser.Math.Between(1,2)]);
     }
     else {
       if(this.selectedSheep.children.contains(gameObject)) {
@@ -281,5 +294,18 @@ export default class MainScene extends Phaser.Scene {
      }
     }
    console.log(this.selectedSheep.getChildren());
+  }
+  generateFraction(selectedColor: string) {
+    let colorCounter = 0;
+    for(let i = 0; i<5;i++){
+      for(let j = 0; j<7;j++){
+        if (this.allSheep[i].currentColor === selectedColor) {
+          colorCounter++;
+        }
+      }
+    }
+    this.numeratorText.setText(Phaser.Math.Between(1,colorCounter).toString());
+    this.numeratorText.setColor(selectedColor);
+    this.denominatorText.setText(Phaser.Math.Between(colorCounter, this.allSheep.length).toString());
   }
 }
