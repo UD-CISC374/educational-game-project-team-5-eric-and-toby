@@ -52,4 +52,20 @@ export default class Sheep extends Phaser.GameObjects.Sprite {
     setgridY(newy : integer){
         this.gridY = newy;
     }
+    update(){
+        enum sheepColors {
+            white = 1,
+            brown
+          }
+        console.log("Resetting sheep");
+        this.currentColor = sheepColors[Phaser.Math.Between(1,2)];
+        this.isSelected = false;
+        if(this.currentColor==="brown"){
+            this.play("brown-unselect");
+           }
+           else {
+            this.play("white-unselect");
+           }
+
+    }
 }

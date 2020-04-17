@@ -274,8 +274,18 @@ export default class MainScene extends Phaser.Scene {
       brown
     }
     if (pointer.rightButtonDown()) {
-      this.selectedSheep.clear(true);
+      
+      //reshuffle selectedSheep
+      for (let i = 0; i < this.selectedSheep.getChildren().length; i++) {
+        let sheepz :Sheep;
+        let sheepy = this.selectedSheep.getChildren()[i];
+        sheepy.update();
+        
+        //beam.update();
+      }
+
       this.generateFraction(sheepColors[Phaser.Math.Between(1,2)]);
+      this.selectedSheep.clear();
     }
     else {
       if(this.selectedSheep.children.contains(gameObject)) {
