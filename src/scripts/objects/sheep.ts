@@ -28,7 +28,7 @@ export default class Sheep extends Phaser.GameObjects.Sprite {
      }
      checkSwap(otherx:integer, othery:integer, othergridx: integer, othergridy:integer){
 
-        if(this.x<25+otherx&& this.x>otherx-10&&this.y>othery-10&&this.y<othery+25){
+        if(this.x<27+otherx&& this.x>otherx-27&&this.y>othery-27&&this.y<othery+27){
             if(othergridx!=this.gridX||othergridy!= this.gridY){
                 console.log("Overlap!")
                 return true;
