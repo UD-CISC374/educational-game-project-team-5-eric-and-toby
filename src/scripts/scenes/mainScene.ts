@@ -18,6 +18,7 @@ export default class MainScene extends Phaser.Scene {
   lineText: Phaser.GameObjects.Text;
   selectedBrown: integer;
   selectedWhite: integer;
+  explanationText: Phaser.GameObjects.Text;
 
 
   constructor() {
@@ -77,6 +78,13 @@ export default class MainScene extends Phaser.Scene {
     this.numeratorText = this.add.text(200,35, "1", {fill:"white"});
     this.lineText = this.add.text(200,45, "--", {fill:"black"});
     this.denominatorText = this.add.text(200,55, "1", {fill:"black"});
+    this.explanationText = this.add.text(50, 220, 
+      "INSTRUCTIONS: Left-click to select\n and deselect squares\n"+
+      "Left-click and drag to move square\n to different position in grid\n"+
+      "Right click to\n remove selected squares\n"+
+      "Removal of selection only works\n if selection matches fraction \n"+
+      "New fraction generated and\n squares regenerated after removal\n"
+      , {fill:"black"});
     this.generateFraction(sheepColors[Phaser.Math.Between(1, 2)]);
     this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
       // reset sheep
