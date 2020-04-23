@@ -12,9 +12,12 @@ export default class MainScene extends Phaser.Scene {
   selectedSheep: Phaser.GameObjects.Group;
   timedEvent: Phaser.Time.TimerEvent;
   allSheep: Array<Sheep>;
+  someSheep: Array<Sheep>;
   numerator: Number;
   denominator: Number;
   lineText: Phaser.GameObjects.Text;
+  selectedBrown: integer;
+  selectedWhite: integer;
 
 
   constructor() {
@@ -29,7 +32,9 @@ export default class MainScene extends Phaser.Scene {
     //this.allSheep = this.add.group();
     //this.allSheep.type = "Sheep";
     this.allSheep = new Array<Sheep>();
-    
+    //this.someSheep = new Array<Sheep>();
+    this.selectedBrown = 0;
+    this.selectedWhite = 0;
     for(let i = 0; i<5;i++){
       for(let j = 0; j<7;j++){
         //TODO: randomize color
@@ -274,22 +279,34 @@ export default class MainScene extends Phaser.Scene {
       brown
     }
     if (pointer.rightButtonDown()) {
-      
+      //check to see if group matches fraction
       //reshuffle selectedSheep
-      for (let i = 0; i < this.selectedSheep.getChildren().length; i++) {
-        let sheepz :Sheep;
-        let sheepy = this.selectedSheep.getChildren()[i];
-        sheepy.update();
-        
-        //beam.update();
+      if((this.selectedWhite==parseInt(this.numeratorText.text)||
+      this.selectedBrown==parseInt(this.numeratorText.text))&&
+      this.selectedSheep.getChildren().length==parseInt(this.denominatorText.text)){
+        for (let i = 0; i < this.selectedSheep.getChildren().length; i++) {
+          let sheepz :Sheep;
+          let sheepy = this.selectedSheep.getChildren()[i];
+          sheepy.update();
+          
+          //beam.update();
+        }
+  
+        this.generateFraction(sheepColors[Phaser.Math.Between(1,2)]);
+        this.selectedSheep.clear();
+        this.selectedBrown = 0;
+        this.selectedWhite = 0;
       }
-
-      this.generateFraction(sheepColors[Phaser.Math.Between(1,2)]);
-      this.selectedSheep.clear();
     }
     else {
       if(this.selectedSheep.children.contains(gameObject)) {
         // sheep is already in the group
+        if(gameObject.currentColor === "brown"){
+          this.selectedBrown--;
+        }
+        else if(gameObject.currentColor === "white"){
+          this.selectedWhite--;
+        }
         this.selectedSheep.remove(gameObject);
         gameObject.isSelected = false;
         this.sheepChooseSprite(gameObject);
@@ -297,6 +314,12 @@ export default class MainScene extends Phaser.Scene {
      }
      else{
        //add sheep to group
+       if(gameObject.currentColor === "brown"){
+        this.selectedBrown++;
+      }
+      else if(gameObject.currentColor === "white"){
+        this.selectedWhite++;
+      }
         console.log("Added to selected group");
         this.selectedSheep.add(gameObject);
         gameObject.isSelected = true;
@@ -314,8 +337,8 @@ export default class MainScene extends Phaser.Scene {
         }
       }
     }
-    this.numeratorText.setText(Phaser.Math.Between(1,colorCounter).toString());
+    this.numeratorText.setText(Phaser.Math.Between(1,colorCounter).toString() +" "+ selectedColor+" sheep");
     this.numeratorText.setColor(selectedColor);
-    this.denominatorText.setText(Phaser.Math.Between(colorCounter, this.allSheep.length).toString());
+    this.denominatorText.setText(Phaser.Math.Between(colorCounter, this.allSheep.length).toString()+ " total sheep");
   }
 }
