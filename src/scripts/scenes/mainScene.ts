@@ -365,15 +365,19 @@ export default class MainScene extends Phaser.Scene {
   }
   generateFraction(selectedColor: string) {
     let colorCounter = 0;
+    let otherColorCounter = 0;
     for(let i = 0; i<5;i++){
       for(let j = 0; j<7;j++){
         if (this.allSheep[i].currentColor === selectedColor) {
           colorCounter++;
         }
+        else{
+          otherColorCounter++;
+        }
       }
     }
     this.numeratorText.setText(Phaser.Math.Between(1,colorCounter).toString() +" "+ selectedColor+" sheep");
     this.numeratorText.setColor(selectedColor);
-    this.denominatorText.setText(Phaser.Math.Between(colorCounter, this.allSheep.length).toString()+ " total sheep");
+    this.denominatorText.setText(Phaser.Math.Between(colorCounter, parseInt(this.numeratorText.text)+otherColorCounter).toString()+ " total sheep");
   }
 }
