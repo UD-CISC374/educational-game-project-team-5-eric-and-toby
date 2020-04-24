@@ -322,17 +322,44 @@ export default class MainScene extends Phaser.Scene {
      }
      else{
        //add sheep to group
-       if(gameObject.currentColor === "brown"){
-        this.selectedBrown++;
-      }
-      else if(gameObject.currentColor === "white"){
-        this.selectedWhite++;
-      }
-        console.log("Added to selected group");
-        this.selectedSheep.add(gameObject);
-        gameObject.isSelected = true;
-        this.sheepChooseSprite(gameObject);
-     }
+       if(this.selectedSheep.getLength() != 0) {
+         //go through each element of the selected array and see if the 
+         // object to be added is close enough to the rest of the 
+         //selected sheep
+          let isClose = false; 
+          this.selectedSheep.getChildren().forEach(element  => {
+            if (Phaser.Math.Distance.Between(Phaser.Display.Bounds.GetCenterX(element), 
+            Phaser.Display.Bounds.GetCenterY(element), Phaser.Display.Bounds.GetCenterX(gameObject),
+            Phaser.Display.Bounds.GetCenterY(gameObject)) <= 30) {
+              isClose = true;
+            }
+          });
+          if (isClose) {
+            if(gameObject.currentColor === "brown"){
+              this.selectedBrown++;
+            }
+            else if(gameObject.currentColor === "white"){
+              this.selectedWhite++;
+            }
+              console.log("Added to selected group");
+              this.selectedSheep.add(gameObject);
+              gameObject.isSelected = true;
+              this.sheepChooseSprite(gameObject);
+          }
+       }
+       else {
+          if(gameObject.currentColor === "brown"){
+            this.selectedBrown++;
+          }
+          else if(gameObject.currentColor === "white"){
+            this.selectedWhite++;
+          }
+            console.log("Added to selected group");
+            this.selectedSheep.add(gameObject);
+            gameObject.isSelected = true;
+            this.sheepChooseSprite(gameObject);
+        }
+       }
     }
    console.log(this.selectedSheep.getChildren());
   }
