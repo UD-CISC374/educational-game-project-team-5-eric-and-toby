@@ -376,8 +376,10 @@ export default class MainScene extends Phaser.Scene {
         }
       }
     }
+    colorCounter = colorCounter/3;
+    otherColorCounter = otherColorCounter/3;
     this.numeratorText.setText(Phaser.Math.Between(1,colorCounter).toString() +" "+ selectedColor+" sheep");
     this.numeratorText.setColor(selectedColor);
-    this.denominatorText.setText(Phaser.Math.Between(colorCounter, parseInt(this.numeratorText.text)+otherColorCounter).toString()+ " total sheep");
+    this.denominatorText.setText(Phaser.Math.Between(colorCounter, colorCounter+otherColorCounter)+ " total sheep");
   }
 }
