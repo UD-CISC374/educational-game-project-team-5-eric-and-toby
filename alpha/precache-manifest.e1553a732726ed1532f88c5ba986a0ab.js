@@ -44,15 +44,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-5-eric-and-toby/alphafavicon.ico"
   },
   {
-    "revision": "a50907f87b9037b1ce89",
-    "url": "/educational-game-project-team-5-eric-and-toby/alphagen.main.d18d8e488f036cb1b095.bundle.js"
+    "revision": "30341300dc6a7f02a280",
+    "url": "/educational-game-project-team-5-eric-and-toby/alphagen.main.d4facfa2445dcc8eca3e.bundle.js"
   },
   {
     "revision": "5e69403aa42e950fedff",
     "url": "/educational-game-project-team-5-eric-and-toby/alphagen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "064365e932bd304475cabbd4ad3eb5dc",
+    "revision": "5627e34977afb0d5ac8e853f540a0b69",
     "url": "/educational-game-project-team-5-eric-and-toby/alphaindex.html"
   },
   {
