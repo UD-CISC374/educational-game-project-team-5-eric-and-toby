@@ -290,16 +290,22 @@ export default class MainScene extends Phaser.Scene {
   }
   generateFraction(selectedColor: string) {
     let colorCounter = 0;
+    let otherColorCounter = 0;
     for(let i = 0; i<5;i++){
       for(let j = 0; j<7;j++){
         if (this.allSheep[i].currentColor === selectedColor) {
           colorCounter++;
         }
+        else{
+          otherColorCounter++;
+        }
       }
     }
+    colorCounter = colorCounter/3;
+    otherColorCounter = otherColorCounter/3;
     this.numeratorText.setText(Phaser.Math.Between(1,colorCounter).toString() +" "+ selectedColor+" sheep");
     this.numeratorText.setColor(selectedColor);
-    this.denominatorText.setText(Phaser.Math.Between(colorCounter, 35-colorCounter).toString()+ " total sheep");
+    this.denominatorText.setText(Phaser.Math.Between(colorCounter, colorCounter+otherColorCounter)+ " total sheep");
   }
   formatTime(currentTime: number) {
     let minute = Math.floor(currentTime/60);
@@ -313,5 +319,6 @@ export default class MainScene extends Phaser.Scene {
     if (this.initialTime <= 0) {
       this.scene.start('PreloadScene');
     }
+    
   }
 }
