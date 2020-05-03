@@ -19,6 +19,9 @@ export default class MainScene extends Phaser.Scene {
   selectedBrown: integer;
   selectedWhite: integer;
   explanationText: Phaser.GameObjects.Text;
+  timerText: Phaser.GameObjects.Text;
+  gameTimer: Phaser.Time.TimerEvent;
+  initialTime: number;
 
 
   constructor() {
@@ -30,10 +33,7 @@ export default class MainScene extends Phaser.Scene {
       white = 1,
       brown
     }
-    //this.allSheep = this.add.group();
-    //this.allSheep.type = "Sheep";
     this.allSheep = new Array<Sheep>();
-    //this.someSheep = new Array<Sheep>();
     this.selectedBrown = 0;
     this.selectedWhite = 0;
     for(let i = 0; i<5;i++){
@@ -42,7 +42,6 @@ export default class MainScene extends Phaser.Scene {
         let color = sheepColors[Phaser.Math.Between(1,2)];
         let sheepy = new Sheep(this, i, j, color);
         this.sheepChooseSprite(sheepy);
-        //sheepy.type = "Sheep";
         console.log("Sheepy is "+sheepy.type);
         console.log("Sheepy has "+sheepy.gridX);
         this.allSheep.push(sheepy);
@@ -52,22 +51,11 @@ export default class MainScene extends Phaser.Scene {
     console.log("Sheep total is "+ this.allSheep.length);
     console.log("First sheep is "+this.allSheep[0].gridX);
     
-    //this.sheep = new Sheep(this, 0, 0, "white");
-    //this.sheep1 = new Sheep(this, 1, 1, "brown");
     this.selectedSheep = this.add.group();
     this.input.mouse.disableContextMenu();
     if(this.selectedSheep.children.contains(this.sheep)) {
       console.log("Sheep in group");
     }
-
-    //this.test = this.add.image(10,10,"brown");
-    //this.sheep1 = this.add.sprite(0, 0, "sheep");
-    //this.sheep1.setInteractive();
-    //this.selectedSheep.add(this.test);
-    //this.input.setDraggable(this.sheep1);
-    //TODO: make sheep objects match with sprites
-    //TODO: make list of all selected sheep
-    //this.sheep1.input.draggable;
     this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
       gameObject.x = dragX;
       gameObject.y = dragY;
@@ -86,20 +74,16 @@ export default class MainScene extends Phaser.Scene {
       "New fraction generated and\n squares regenerated after removal\n"
       , {fill:"black"});
     this.generateFraction(sheepColors[Phaser.Math.Between(1, 2)]);
+    this.initialTime = 60;
+    this.timerText = this.add.text(200, 0, "Time Remaining: " + this.formatTime(this.initialTime), {fill:"black"});
+    
+    this.gameTimer = this.time.addEvent({delay: 1000, callback: this.onTimerOut, callbackScope: this, loop: true});
     this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
       // reset sheep
-      //TODO: check overlap
       for(let i = 0; i<this.allSheep.length; i++){
-        //console.log("Sheep check section");
-        //console.log(this.allSheep[i].getgridX());
-        //console.log(this.allSheep[i].getgridY());
         for(let j = 0; j<this.allSheep.length; j++){
-          //console.log(i+ "     "+ j);
-          //console.log(this.allSheep[i].getgridX() +" "+ this.allSheep[i].getgridY()+"|"+ this.allSheep[j].getgridX())
-          //console.log(j);
           console.log("Overlap called");
           let swap = this.allSheep[j].checkSwap(this.allSheep[i].x, this.allSheep[i].y, this.allSheep[i].getgridX(), this.allSheep[i].getgridY());
-          //let swap = false;
           if(swap){
             let thisx = this.allSheep[j].getgridX();
             let thisy = this.allSheep[j].getgridY();
@@ -112,31 +96,19 @@ export default class MainScene extends Phaser.Scene {
             this.allSheep[j].setgridY(temy);
             console.log("Swapped");
           }
-          //this.checkOverlap(this.allSheep[i], this.allSheep[j]);
+         
         }
         
-        /*for(let j = 0; j<this.allSheep.length-1; j++){
-          this.checkOverlap(this.allSheep[i], this.allSheep[j]);
-        }*/
+      
       }
-      //this.checkOverlap(this.sheep1, this.sheep);
+    
   }, callbackScope: this, loop: true });
     this.timedEvent = this.time.addEvent({ delay: 2000, callback: ()=>{
       console.log("Reset function called");
-      //this.allSheep.reset
       for(let i = 0; i<this.allSheep.length; i++){
         this.allSheep[i].resetToGrid();
         this.sheepChooseSprite(this.allSheep[i]);
       }
-      // reset sheep
-      //this.allSheep.children.each(this.resetToGrid(sheep), this);
-      /*Phaser.Actions.Call(this.allSheep.getChildren(), function(sheep){
-        sheep.resetToGrid();
-        
-      }, this);*/
-      //this.physics.collide
-      //this.resetToGrid(this.sheep1);
-      //this.resetToGrid(this.sheep);
   }, callbackScope: this, loop: true });
  
     
@@ -176,67 +148,15 @@ export default class MainScene extends Phaser.Scene {
     frameRate: 20,
     repeat: -1
   });
-
-  //this.sheep.play("white-unselect");
   }
   
 
   update() {
-    // for(let i = 0; i<this.allSheep.length; i++){
-    //   //console.log("Sheep check section");
-    //   //console.log(this.allSheep[i].getgridX());
-    //   //console.log(this.allSheep[i].getgridY());
-    //   for(let j = 0; j<this.allSheep.length; j++){
-    //     //console.log(i+ "     "+ j);
-    //     //console.log(this.allSheep[i].getgridX() +" "+ this.allSheep[i].getgridY()+"|"+ this.allSheep[j].getgridX())
-    //     //console.log(j);
-    //     console.log("Overlap called");
-    //     let swap = this.allSheep[j].checkSwap(this.allSheep[i].x, this.allSheep[i].y, this.allSheep[i].getgridX(), this.allSheep[i].getgridY());
-    //     if(swap){
-    //       let thisx = this.allSheep[j].getgridX();
-          
-    //       let thisy = this.allSheep[j].getgridY();
-    //       let temx = this.allSheep[i].getgridX();
-    //       let temy = this.allSheep[i].getgridY();
-    //       console.log("From "+thisx+", "+thisy +"->" + temx + ", "+temy);
-    //       this.allSheep[j].setgridX(temx);
-    //       this.allSheep[j].setgridY(temy);
-    //       this.allSheep[i].setgridX(thisx);
-    //       this.allSheep[i].setgridY(thisy);
-    //       console.log("Swapped");
-    //     }
-    //     //this.checkOverlap(this.allSheep[i], this.allSheep[j]);
-    //   }
-      
-    //   /*for(let j = 0; j<this.allSheep.length-1; j++){
-    //     this.checkOverlap(this.allSheep[i], this.allSheep[j]);
-    //   }*/
-    // }
 
-
-    //TODO: swap sheep
-    /*if (this.checkOverlap(this.sheep, this.sheep1))
-    {
-        this.scoretext.text = 'Drag the sprites. Overlapping: true';
-       
-    }
-    else
-    {
-        this.scoretext.text = 'Drag the sprites. Overlapping: false';
-    }*/
-    //this.resetToGrid(this.sheep1);
-    //this.scoretext.setText('Event.progress: ' + this.timedEvent.getProgress().toString().substr(0, 4) + '\nEvent.repeatCount: ' + this.timedEvent.repeatCount);
   }
-  /*
-  onObjectClicked:upon left clicking a sheep, add it 
-  to the group of selected sheep
-  upon right click, check and see if the fraction is
-  met, and remove the sheep
-  Params: 
-  pointer (the mouse pointer)
-  gameObject : Sheep (the game object selected, has to be a sheep)
-  
-  */
+    
+
+
  checkOverlap(this: MainScene, spriteA : Sheep, spriteB : Sheep) {
 
   let boundsA = spriteA.getBounds();
@@ -302,9 +222,14 @@ export default class MainScene extends Phaser.Scene {
   
         this.generateFraction(sheepColors[Phaser.Math.Between(1,2)]);
         this.selectedSheep.clear();
+        this.initialTime += 20;
         this.selectedBrown = 0;
         this.selectedWhite = 0;
       }
+      else{
+        this.initialTime -= 5;
+      }
+
     }
     else {
       if(this.selectedSheep.children.contains(gameObject)) {
@@ -374,6 +299,19 @@ export default class MainScene extends Phaser.Scene {
     }
     this.numeratorText.setText(Phaser.Math.Between(1,colorCounter).toString() +" "+ selectedColor+" sheep");
     this.numeratorText.setColor(selectedColor);
-    this.denominatorText.setText(Phaser.Math.Between(colorCounter, this.allSheep.length).toString()+ " total sheep");
+    this.denominatorText.setText(Phaser.Math.Between(colorCounter, 35-colorCounter).toString()+ " total sheep");
+  }
+  formatTime(currentTime: number) {
+    let minute = Math.floor(currentTime/60);
+    let seconds = currentTime%60;
+    return `${minute}:${seconds}`;
+
+  }
+  onTimerOut () {
+    this.initialTime -= 1;
+    this.timerText.setText('Countdown: ' + this.formatTime(this.initialTime));
+    if (this.initialTime <= 0) {
+      this.scene.start('PreloadScene');
+    }
   }
 }
