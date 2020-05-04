@@ -41,13 +41,16 @@ export default class IntroScene extends Phaser.Scene {
 
       //this.input.on('gameobjectdown', this.restart, this);
       this.button.on('pointerdown', this.restart, this);
+      this.button1.on('pointerdown', this.startTutorial, this);
     
     }
     restart(){
       this.scene.start("MainScene");
     }
 
-    
+    startTutorial(){
+        this.scene.start("TutorialScene");
+    }
   
     update() {
     }
