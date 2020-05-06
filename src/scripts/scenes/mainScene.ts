@@ -74,7 +74,7 @@ export default class MainScene extends Phaser.Scene {
       "New fraction generated and\n squares regenerated after removal\n"
       , {fill:"black"});
     this.generateFraction(sheepColors[Phaser.Math.Between(1, 2)]);
-    this.initialTime = 10;
+    this.initialTime = 60;
     this.timerText = this.add.text(200, 0, "Time Remaining: " + this.formatTime(this.initialTime), {fill:"black"});
     
     this.gameTimer = this.time.addEvent({delay: 1000, callback: this.onTimerOut, callbackScope: this, loop: true});
