@@ -56,26 +56,25 @@ export default class MainScene extends Phaser.Scene {
     if(this.selectedSheep.children.contains(this.sheep)) {
       console.log("Sheep in group");
     }
-    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-  });
+  //   this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+  //     gameObject.x = dragX;
+  //     gameObject.y = dragY;
+  // });
     // the last this here passes in the correct scope
     this.input.on('gameobjectdown',this.onObjectClicked, this);
-    this.fractionText = this.add.text(200,20, "Fraction:", {fill:"black"});
+    this.fractionText = this.add.text(200,20, "Fraction:", {fill:"white"});
     this.numeratorText = this.add.text(200,35, "1", {fill:"white"});
-    this.lineText = this.add.text(200,45, "--", {fill:"black"});
-    this.denominatorText = this.add.text(200,55, "1", {fill:"black"});
+    this.lineText = this.add.text(200,45, "--", {fill:"white"});
+    this.denominatorText = this.add.text(200,55, "1", {fill:"white"});
     this.explanationText = this.add.text(50, 220, 
-      "INSTRUCTIONS: Left-click to select\n and deselect squares\n"+
-      "Left-click and drag to move square\n to different position in grid\n"+
-      "Right click to\n remove selected squares\n"+
-      "Removal of selection only works\n if selection matches fraction \n"+
-      "New fraction generated and\n squares regenerated after removal\n"
-      , {fill:"black"});
+      "INSTRUCTIONS: Left-click to select\n and deselect sheep\n"+
+      "Right click to\n heard selected sheep when they are \n in the correct fraction\n"+
+      "Correct fractions will add time \n to the timer, incorrect ones will \n remove time from the timer, \n so be accurate and fast!\n"+
+      "New fraction generated and\n sheep regenerated after removal\n"
+      , {fill:"white"});
     this.generateFraction(sheepColors[Phaser.Math.Between(1, 2)]);
     this.initialTime = 60;
-    this.timerText = this.add.text(200, 0, "Time Remaining: " + this.formatTime(this.initialTime), {fill:"black"});
+    this.timerText = this.add.text(200, 0, "Time Remaining: " + this.formatTime(this.initialTime), {fill:"white"});
     
     this.gameTimer = this.time.addEvent({delay: 1000, callback: this.onTimerOut, callbackScope: this, loop: true});
     this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
@@ -245,33 +244,6 @@ export default class MainScene extends Phaser.Scene {
         this.sheepChooseSprite(gameObject);
         console.log("Removed to selected group");
      }
-     else{
-       //add sheep to group
-       if(this.selectedSheep.getLength() != 0) {
-         //go through each element of the selected array and see if the 
-         // object to be added is close enough to the rest of the 
-         //selected sheep
-          let isClose = false; 
-          this.selectedSheep.getChildren().forEach(element  => {
-            if (Phaser.Math.Distance.Between(Phaser.Display.Bounds.GetCenterX(element), 
-            Phaser.Display.Bounds.GetCenterY(element), Phaser.Display.Bounds.GetCenterX(gameObject),
-            Phaser.Display.Bounds.GetCenterY(gameObject)) <= 30) {
-              isClose = true;
-            }
-          });
-          if (isClose) {
-            if(gameObject.currentColor === "brown"){
-              this.selectedBrown++;
-            }
-            else if(gameObject.currentColor === "white"){
-              this.selectedWhite++;
-            }
-              console.log("Added to selected group");
-              this.selectedSheep.add(gameObject);
-              gameObject.isSelected = true;
-              this.sheepChooseSprite(gameObject);
-          }
-       }
        else {
           if(gameObject.currentColor === "brown"){
             this.selectedBrown++;
@@ -285,7 +257,6 @@ export default class MainScene extends Phaser.Scene {
             this.sheepChooseSprite(gameObject);
         }
        }
-    }
    console.log(this.selectedSheep.getChildren());
   }
   generateFraction(selectedColor: string) {
