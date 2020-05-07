@@ -288,7 +288,7 @@ export default class MainScene extends Phaser.Scene {
     this.initialTime -= 1;
     this.timerText.setText('Countdown: ' + this.formatTime(this.initialTime));
     if (this.initialTime <= 0) {
-      this.scene.start('PreloadScene');
+      this.scene.start('EndScene');
     }
     
   }
