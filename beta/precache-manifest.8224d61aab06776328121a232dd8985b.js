@@ -64,19 +64,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/testsprites.png"
   },
   {
-    "revision": "b72ebe69181b84be9cee222410e13100",
+    "revision": "16af7a9cd5bb50ed5947af0ee486b41b",
     "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/tut0.png"
   },
   {
-    "revision": "88bb9ef32529bfb7ea8f5e73fd77d366",
+    "revision": "8c26f5a6dce02deb48760d972b2214f7",
     "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/tut1.png"
   },
   {
-    "revision": "a16f36b85154c39944eff55bb008f2ce",
+    "revision": "472856fc9103a4174fc2376fb4e120b5",
     "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/tut2.png"
   },
   {
-    "revision": "e7d33fe4bae19f3803a64eb97f2d835e",
+    "revision": "7d66f423f5d03ce847f3ad5b62fed4f2",
     "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/tut3.png"
   },
   {
@@ -84,11 +84,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/tutbutton.png"
   },
   {
-    "revision": "27122cff2c3cead6baebb22591308efc",
+    "revision": "8ff1d69e7f713e89d1cf646a42217620",
+    "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/tuts.psd"
+  },
+  {
+    "revision": "a4018a76fda6334911814a0cb3244af5",
     "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/tutsprite.png"
   },
   {
-    "revision": "47c31fa37e750c821b67cbba7f397901",
+    "revision": "d600d4bfc93505a3252a7baa4a03c876",
     "url": "/educational-game-project-team-5-eric-and-toby/betaassets/sprites/tutsprite.psd"
   },
   {
@@ -96,15 +100,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-5-eric-and-toby/betafavicon.ico"
   },
   {
-    "revision": "a984724c38ee95bd0726",
-    "url": "/educational-game-project-team-5-eric-and-toby/betagen.main.9ad442963a23ed3ed565.bundle.js"
+    "revision": "61033e2b17cc6a6aafdf",
+    "url": "/educational-game-project-team-5-eric-and-toby/betagen.main.a422a3b4fa1ffd0d2843.bundle.js"
   },
   {
     "revision": "5e69403aa42e950fedff",
     "url": "/educational-game-project-team-5-eric-and-toby/betagen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "a6d1651e277faf1ba7f73f8126b0c240",
+    "revision": "6b9c9fbc7d4eb43c124cff255443b336",
     "url": "/educational-game-project-team-5-eric-and-toby/betaindex.html"
   },
   {
