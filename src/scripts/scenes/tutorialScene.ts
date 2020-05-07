@@ -18,7 +18,10 @@ export default class TutorialScene extends Phaser.Scene {
       this.load.image("startbutton", "assets/sprites/startbutton.png");
       this.load.image("fbutton", "assets/sprites/forwardbutton.png");
       this.load.image("bbutton", "assets/sprites/backbutton.png");
-      this.load.image("tutsprite", "assets/sprites/tutsprite.png");
+      this.load.image("tut0", "assets/sprites/tut0.png");
+      this.load.image("tut1", "assets/sprites/tut1.png");
+      this.load.image("tut2", "assets/sprites/tut2.png");
+      this.load.image("tut3", "assets/sprites/tut3.png");
     }
    
     create() {
@@ -39,11 +42,11 @@ export default class TutorialScene extends Phaser.Scene {
         frameHeight: 16
       });
       this.load.spritesheet("tutsprite", "assets/sprites/tutsprite.png",{
-        frameWidth: 100,
+        frameWidth: 300,
         frameHeight: 200
       });
 
-      this.anims.create({
+       this.anims.create({
         key: "tut0",
         frames: this.anims.generateFrameNumbers("tutsprite", {
           start: 0,
@@ -78,7 +81,7 @@ export default class TutorialScene extends Phaser.Scene {
         }),
         frameRate: 20,
         repeat: -1
-      });
+      }); 
       
       //this.scene.start("TobyScene");
       this.startbutton = this.physics.add.sprite(400 / 2 - 50, 350, "startbutton");
@@ -102,6 +105,8 @@ export default class TutorialScene extends Phaser.Scene {
       this.button.on('pointerdown', this.forward, this);
       this.button1.on('pointerdown', this.back, this);
       this.startbutton.on('pointerdown', this.reload, this);
+
+      this.tuts = this.physics.add.sprite(200, 100, "tut0");
     
     }
     back(){
@@ -124,18 +129,20 @@ export default class TutorialScene extends Phaser.Scene {
     update() {
         //Set tutorial image to match counter
         this.text.setText(this.counter.toString());
-        /*if(this.counter==0){
-            this.tuts.play("tut0");
+        if(this.counter==0){
+            //this.tuts.setFrame(0);
+            this.tuts.setTexture("tut0");
         }
         if(this.counter==1){
-            this.tuts.play("tut1");
+            //this.tuts.setFrame(1);
+            this.tuts.setTexture("tut1");
         }
         if(this.counter==2){
-            this.tuts.play("tut2");
+            this.tuts.setTexture("tut2");
         }
         if(this.counter==3){
-            this.tuts.play("tut3");
+            this.tuts.setTexture("tut3");
         }
-*/
+
     }
   }
