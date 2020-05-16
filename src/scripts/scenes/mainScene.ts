@@ -33,12 +33,22 @@ export default class MainScene extends Phaser.Scene {
       white = 1,
       brown
     }
+    for(let i = 0; i<5;i++){
+      for(let j = 0; j<7;j++){
+        //TODO: randomize color
+        this.add.image(30*i, 30*j, "grass");
+        this.add.image(30*i+20, 30*j+20, "grass");
+        
+        
+      }
+    }
     this.allSheep = new Array<Sheep>();
     this.selectedBrown = 0;
     this.selectedWhite = 0;
     for(let i = 0; i<5;i++){
       for(let j = 0; j<7;j++){
         //TODO: randomize color
+        //this.add.image(30*i+20, 30*j+20, "grass");
         let color = sheepColors[Phaser.Math.Between(1,2)];
         let sheepy = new Sheep(this, i, j, color);
         this.sheepChooseSprite(sheepy);
