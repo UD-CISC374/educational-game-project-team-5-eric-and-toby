@@ -9,3 +9,9 @@ Left click on a sheep to select it.
 When you think your selection matches the fraction, right-click it to remove it.
 Sheep are replaced and fraction is regenerated.
 Try to make as many matches as you can before time runs out!
+
+Gameplay video:
+[Video](https://youtu.be/mxU1UkoJ0Yg)
+
+Screenshot:
+![Large screenshot](/screenshots/large.png)
