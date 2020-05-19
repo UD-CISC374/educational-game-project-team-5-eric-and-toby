@@ -6,8 +6,8 @@ import IntroScene from './scenes/introScene';
 import TutorialScene from './scenes/tutorialScene';
 import GameConfig = Phaser.Types.Core.GameConfig;
 
-const DEFAULT_WIDTH = 400;
-const DEFAULT_HEIGHT = 400;
+const DEFAULT_WIDTH = 600;
+const DEFAULT_HEIGHT = 600;
 
 
 const config: GameConfig = {

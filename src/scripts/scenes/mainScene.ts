@@ -26,6 +26,7 @@ export default class MainScene extends Phaser.Scene {
   currentMultiplier: integer;
   score: integer;
   correctStreak: Phaser.GameObjects.Text;
+  totalSheep: Phaser.GameObjects.Group;
 
 
   constructor() {
@@ -66,9 +67,13 @@ export default class MainScene extends Phaser.Scene {
     console.log("First sheep is "+this.allSheep[0].gridX);
     
     this.selectedSheep = this.add.group();
-    this.input.mouse.disableContextMenu();
-    if(this.selectedSheep.children.contains(this.sheep)) {
-      console.log("Sheep in group");
+    this.totalSheep = this.add.group();
+    for (let i = 0;  i < 10; i++ ) {
+      let x = Phaser.Math.Between(0,300);
+      let y = Phaser.Math.Between(0,300);
+      let color = sheepColors[Phaser.Math.Between(1,3)];
+      let sheep = new Sheep(this, x, y, color)
+      this.totalSheep.add(sheep);
     }
   //   this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
   //     gameObject.x = dragX;
