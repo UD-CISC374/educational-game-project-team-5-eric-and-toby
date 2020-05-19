@@ -116,19 +116,27 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-5-eric-and-toby/finalassets/sprites/tutsprite.psd"
   },
   {
+    "revision": "dbfa4021fcbb445c40cf3b97f85452b8",
+    "url": "/educational-game-project-team-5-eric-and-toby/finalassets/sprites/woolscreen.png"
+  },
+  {
+    "revision": "72e344ded7d68f8e1e7700ddabacc65e",
+    "url": "/educational-game-project-team-5-eric-and-toby/finalassets/sprites/woolscreen.psd"
+  },
+  {
     "revision": "085770695edfe2483821983d8a36208d",
     "url": "/educational-game-project-team-5-eric-and-toby/finalfavicon.ico"
   },
   {
-    "revision": "85602dce4c47e674f031",
-    "url": "/educational-game-project-team-5-eric-and-toby/finalgen.main.f417217ead087dd06109.bundle.js"
+    "revision": "e54a61faa9eeb3e331fd",
+    "url": "/educational-game-project-team-5-eric-and-toby/finalgen.main.2d3d3f0b3164a925da2a.bundle.js"
   },
   {
     "revision": "5e69403aa42e950fedff",
     "url": "/educational-game-project-team-5-eric-and-toby/finalgen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "47574c4fc437a7382213f06c7218959c",
+    "revision": "0d15ab34f3089b1fb505b3fd16d17fc2",
     "url": "/educational-game-project-team-5-eric-and-toby/finalindex.html"
   },
   {
