@@ -11,13 +11,15 @@ export default class IntroScene extends Phaser.Scene {
   
     preload(){
         
-      //this.load.image("background", "assets/spritesheets/lizzybg.png");
+      this.load.image("teaser", "assets/sprites/woolscreen.png");
       this.load.image("startbutton", "assets/sprites/startbutton.png");
       this.load.image("tutbutton", "assets/sprites/tutbutton.png");
     }
    
     create() {
         console.log("New scene");
+        
+        this.add.image(200, 150,"teaser");
       this.text = this.add.text(20,20, "Woolgathering", {fill:"white"});
       //this.background = this.add.tileSprite(0, 0, 400,400, "background");
       this.load.spritesheet("startbutton", "assets/sprites/startbutton.png",{
@@ -29,12 +31,12 @@ export default class IntroScene extends Phaser.Scene {
         frameHeight: 16
       });
       //this.scene.start("TobyScene");
-      this.button = this.physics.add.sprite(400 / 2 - 50, 400 / 2, "startbutton");
+      this.button = this.physics.add.sprite(400 / 2 - 50, 300, "startbutton");
       this.button.setInteractive();
       this.button.setImmovable(true);
       this.button.setGravity(0,0);
       
-      this.button1 = this.physics.add.sprite(400 / 2 , 400 / 2, "tutbutton");
+      this.button1 = this.physics.add.sprite(400 / 2 , 300, "tutbutton");
       this.button1.setInteractive();
       this.button1.setImmovable(true);
       this.button1.setGravity(0,0);
