@@ -5,7 +5,7 @@
   "homepage": "https://github.com/acbart/educational-phaser-game-template#readme",
   "main": "index.js",
   "game": {
-    "url": "educational-phaser-game-template",
+    "url": "educational-game-project-team-5-eric-and-toby",
     "shortName": "EdGame",
     "name": "Educational Phaser Game Template"
   },
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acbart/educational-phaser-game-template.git"
+    "url": "https://github.com/UD-CISC374/educational-game-project-team-5-eric-and-toby.git"
   },
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.dev.js",

@@ -1,32 +1,17 @@
-# educational-phaser-game-template
+Woolgathering
+Eric Nahe and Tobias Boyd
 
-Template for designing educational Phaser Games
+Herd sheep and make wool in this fast paced puzzle game designed to teach fractional representations to elementary school students! Make groups of sheep that represent a fraction to get points. Try to make as many groups as you can before time runs out!
+Many students get stuck when trying to depict fractions as a single object divided into parts, especially with fractions with odd-number denominators. These fractions can be easier to draw as a subgroup of a group of objects. Our goal is that after playing Woolgathering, students will be able to depict a fraction in this way.
 
-# Important Files
+Instructions:
+Left click on a sheep to select it. 
+When you think your selection matches the fraction, right-click it to remove it.
+Sheep are replaced and fraction is regenerated.
+Try to make as many matches as you can before time runs out!
 
-These files are for coding your game:
+Gameplay video:
+[Video](https://youtu.be/mxU1UkoJ0Yg)
 
-* [src/scripts/game.ts](src/scripts/game.ts): The starting file of your game.
-
-These files are for documenting your game:
- 
-* [egdd.md](egdd.md): The educational game design document describing this game in more depth.
-
-These [package.json](package.json) settings are for configuring the metadata of your game and should be updated:
-
-* `name`: This must be a lower-case version of your repository name on GitHub, without spaces.
-* `description`: Give a quick, one sentence summary of your game.
-* `game`:
-    * `url`: Change this to be the EXACT name of your repository on GitHub.
-    * `shortName`: Choose a short name for your game for [Progressive Web App](https://medium.com/@amberleyjohanna/seriously-though-what-is-a-progressive-web-app-56130600a093) packaging.
-    * `name`: Choose a longer, complete name for your game.
-* `repository`:
-    * `url`: Change this URL to be a link to your GitHub repository.
-* `homepage`: Change this URL to be a link to the final version of your game's EGDD.
-* `contributors`: This should be an array (list) of strings, where each string is like `"Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)"`.
-
-You should edit the following images to create icons for your game, if it gets installed as a [Progressive Web App](https://medium.com/@amberleyjohanna/seriously-though-what-is-a-progressive-web-app-56130600a093):
-
-* [src/assets/icons/icons-192.png](src/assets/icons/icons-192.png): This is a 192x192 pixel version of your game's icon.
-* [src/assets/icons/icons-512.png](src/assets/icons/icons-512.png): This is a 512x512 pixel version of your game's icon.
-* [src/assets/icons/favicon.ico](src/assets/icons/favicon.ico): The [Favicon](https://en.wikipedia.org/wiki/Favicon) for your game.
+Screenshot:
+![Large screenshot](/screenshots/large.png)
