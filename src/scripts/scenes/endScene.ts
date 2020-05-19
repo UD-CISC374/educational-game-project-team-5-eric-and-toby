@@ -3,10 +3,13 @@ export default class EndScene extends Phaser.Scene {
     text: Phaser.GameObjects.Text;
     background: Phaser.GameObjects.TileSprite;
     button: Phaser.Physics.Arcade.Sprite;
+  scoreText: Phaser.GameObjects.Text;
   
     constructor() {
       super({ key: 'EndScene' });
     }
+   
+
   
     preload(){
         
@@ -14,9 +17,11 @@ export default class EndScene extends Phaser.Scene {
       this.load.image("button", "assets/sprites/button.png");
     }
    
-    create() {
+    create(data: any) {
         console.log("New scene");
-      this.text = this.add.text(20,20, "Game over. Play again?", {fill:"white"});
+
+      this.scoreText = this.add.text(20, 20, `Your Score: ${data.score}`)
+      this.text = this.add.text(20,40, "Game over. Play again?", {fill:"white"});
       //this.background = this.add.tileSprite(0, 0, 400,400, "background");
       this.load.spritesheet("button", "assets/sprites/button.png",{
         frameWidth: 32,

@@ -22,6 +22,10 @@ export default class MainScene extends Phaser.Scene {
   timerText: Phaser.GameObjects.Text;
   gameTimer: Phaser.Time.TimerEvent;
   initialTime: number;
+  scoreText: Phaser.GameObjects.Text;
+  currentMultiplier: integer;
+  score: integer;
+  correctStreak: Phaser.GameObjects.Text;
 
 
   constructor() {
@@ -76,6 +80,8 @@ export default class MainScene extends Phaser.Scene {
     this.numeratorText = this.add.text(200,35, "1", {fill:"white"});
     this.lineText = this.add.text(200,45, "--", {fill:"white"});
     this.denominatorText = this.add.text(200,55, "1", {fill:"white"});
+    this.scoreText = this.add.text(200, 65, "Score: 0", {fill:"white"});
+    this.correctStreak = this.add.text(200, 75, "Correct Streak: 0", {fill:"white"})
     this.explanationText = this.add.text(50, 220, 
       "INSTRUCTIONS: Left-click to select\n and deselect sheep\n"+
       "Right click to\n heard selected sheep when they are \n in the correct fraction\n"+
@@ -85,7 +91,8 @@ export default class MainScene extends Phaser.Scene {
     this.generateFraction(sheepColors[Phaser.Math.Between(1, 2)]);
     this.initialTime = 60;
     this.timerText = this.add.text(200, 0, "Time Remaining: " + this.formatTime(this.initialTime), {fill:"white"});
-    
+    this.currentMultiplier = 0;
+    this.score = 0;
     this.gameTimer = this.time.addEvent({delay: 1000, callback: this.onTimerOut, callbackScope: this, loop: true});
     this.timedEvent = this.time.addEvent({ delay: 1000, callback: ()=>{
       // reset sheep
@@ -232,10 +239,16 @@ export default class MainScene extends Phaser.Scene {
         this.generateFraction(sheepColors[Phaser.Math.Between(1,2)]);
         this.selectedSheep.clear();
         this.initialTime += 20;
+        this.currentMultiplier = this.currentMultiplier + 1;
+        this.score = this.score + (200 * this.currentMultiplier);
+        this.scoreText.setText('Score: ' + this.score.toString());
+        this.correctStreak.setText('Correct Streak: '+ this.currentMultiplier.toString());
         this.selectedBrown = 0;
         this.selectedWhite = 0;
       }
       else{
+        this.currentMultiplier = 1;
+        this.correctStreak.setText('Correct Streak: '+ this.currentMultiplier.toString());
         this.initialTime -= 5;
       }
 
@@ -298,7 +311,7 @@ export default class MainScene extends Phaser.Scene {
     this.initialTime -= 1;
     this.timerText.setText('Countdown: ' + this.formatTime(this.initialTime));
     if (this.initialTime <= 0) {
-      this.scene.start('EndScene');
+      this.scene.start('EndScene', {score: this.score});
     }
     
   }
