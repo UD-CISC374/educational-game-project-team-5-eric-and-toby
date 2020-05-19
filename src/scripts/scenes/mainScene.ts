@@ -36,7 +36,7 @@ export default class MainScene extends Phaser.Scene {
     for(let i = 0; i<5;i++){
       for(let j = 0; j<7;j++){
         //TODO: randomize color
-        this.add.image(30*i, 30*j, "grass");
+        //this.add.image(30*i, 30*j, "grass");
         this.add.image(30*i+20, 30*j+20, "grass");
         
         

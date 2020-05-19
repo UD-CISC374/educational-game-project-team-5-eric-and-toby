@@ -37,7 +37,7 @@ Herd sheep and make wool in this fast paced puzzle game designed to teach fracti
 *Give a very high-level description of any core gameplay mechanics*
 
 - *Gameplay Mechanic #1*
-Left click to move sheep and match them into a correct fractional form 
+Left click to select sheep
 - *Gameplay Mechanic #2*
 Right click to remove sheep that are thought to be in a correct fractional form,
 if correct, gain time and score, if incorrect, lose time
